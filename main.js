@@ -1,5 +1,6 @@
 import './style.css';
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const scene = new THREE.Scene();
 
@@ -16,6 +17,9 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
 
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.update();
+
 document.body.appendChild(renderer.domElement);
 
 const geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -29,6 +33,12 @@ scene.add(ambientLight);
 const pointLight = new THREE.PointLight(0xffffff, 1, 100);
 pointLight.position.set(10, 10, 10);
 scene.add(pointLight);
+
+const size = 10;
+const divisions = 10;
+
+const gridHelper = new THREE.GridHelper(size, divisions, 0xffffff);
+scene.add(gridHelper);
 
 function animate() {
   requestAnimationFrame(animate);
